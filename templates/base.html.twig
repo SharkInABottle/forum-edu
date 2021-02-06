@@ -4,10 +4,69 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-
-        {% block javascripts %}{% endblock %}
+<style>
+.dropbtn { 
+  font-size: 16px;
+  border: none;}
+a{text-decoration:none;}
+.dropdown {
+  position: relative;
+  display: inline-block;}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color:#B5C1C0;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;}
+.dropdown-content a:hover {background-color: red;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: white;}
+</style>
     </head>
     <body>
+        {% if app.user and not app.user.isVerified() %}
+        <h3>WE SENT YOU A VERIFICATION EMAIL, PLZ VERIFY UR EMAIL ADRESS ASAP</h3>
+        {% endif %}
+        
         {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+        <div>
+    <center><h2 style="color:blue;">Bienvenu dans votre forum</h2></center>
+    {% if not app.user %}
+    <div>
+   <table style='float:right;'>
+        <tr><th colspan='2' style="background-color:yellow;"><a href='{{path('app_login')}}'>veuillez vous connectez</a></th></tr> 
+        <tr><td colspan='2' style="background-color:yellow;"><a href='{{path('index')}}'>mot de passe oublié?</a></td></tr>
+        <tr><td colspan='2' style="background-color:grey;"><a href="{{path('app_register')}}">Pas encore un membre? Inscrivez vous gratuitement içi</a></td></tr>
+        <tr style="display:none;"><td></td></tr>
+    </table>
+    </div>
+    {% endif %}
+    <table style="width:100%;background-color:#B5C1C0;">
+        <tr>
+            <th><a href="{{path('index')}}">acceuil</a></th>
+            <th class="dropdown">
+            <div class="dropbtn">
+                Categories
+                <div class="dropdown-content">
+                    <a href="#">Maths</a>
+                    <a href="#">Education Physique</a>
+                    <a href="#">SVT</a>
+                    
+                </div>
+            </div>
+            </th>
+            <th><a href="">Cours</a></th>
+            <th><a href="">Téléchargements</a></th>
+            <th><a href="">info</a></th></tr>
+    </table>
+        </div>
     </body>
 </html>
+
